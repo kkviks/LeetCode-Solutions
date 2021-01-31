@@ -1,16 +1,26 @@
 class Solution {
 public:
     int thirdMax(vector<int>& nums) {
-        sort(begin(nums),end(nums),greater<int>());
-        int g_max = nums[0];
-        int count = 1;
-        int curr = nums[0];
-        for(int i=1;i<nums.size();i++){
-            if(nums[i]==curr)continue;
-            count++; curr = nums[i];
-            if(count == 3)return curr;
+        long highest = LONG_MIN;
+        long secondHighest = LONG_MIN;
+        long thirdHighest = LONG_MIN;
+        
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>highest){
+                thirdHighest = secondHighest;
+                secondHighest = highest;
+                highest = nums[i];
+            }else if(nums[i]>secondHighest and nums[i]!=highest ){
+                thirdHighest = secondHighest;
+                secondHighest = nums[i];
+            }else if(nums[i]>=thirdHighest and nums[i]!=secondHighest and nums[i]!=highest){
+                thirdHighest = nums[i];
+            }
         }
         
-        return g_max;
+        if(thirdHighest!=LONG_MIN){
+            return thirdHighest;
+        }
+        return highest;
     }
 };
