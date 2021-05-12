@@ -1,16 +1,18 @@
 class Solution {
-    /* Naive Approach: Time: O(n*n), Aux Space O(1); */
 public:
-    vector<int> smallerNumbersThanCurrent(vector<int>& v) {        
-        vector<int> ans(v.size());
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        vector<int> temp(102,0);
         
-        for(int i=0;i<v.size();i++){
-            int count = 0;
-            for(int j=0;j<v.size();j++){
-                if(v[j]<v[i])
-                    count++;
-            }
-            ans[i] = count;
+        for(int x:nums){
+            temp[x+1]++;
+        }
+        
+        partial_sum(temp.begin(),temp.end(),temp.begin());
+        
+        vector<int> ans(nums.size());
+        
+        for(int i=0;i<nums.size();i++){
+            ans[i] = temp[nums[i]];
         }
         
         return ans;
