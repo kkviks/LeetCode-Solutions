@@ -11,47 +11,35 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* i = l1, *j = l2, *curr = new ListNode(INT_MIN), *head = curr;
         
-        if(l1==NULL and l2==NULL)return NULL;
-        if(l1==NULL and l2!=NULL)return l2;
-        if(l1!=NULL and l2==NULL)return l1;
-        
-        ListNode* prev = NULL;
-        ListNode* head = NULL;
-        
-        if(l1->val <= l2->val){
-            head = l1;
-            prev = l1;
-            l1 = l1->next;
-        }else{
-            head = l2;
-            prev = l2;
-            l2 = l2->next;
-        }
-        
-        while(l1!=NULL and l2!=NULL){
-            if(l1->val <= l2->val){
-                prev->next = l1;
-                prev = l1;
-                l1 = l1->next;
-            }else{
-                prev->next = l2;
-                prev = l2;
-                l2 = l2->next;
+        while(i!=NULL and j!=NULL){
+            if(i->val <= j->val){
+                curr->next = i;
+                i = i->next;
+            }else {
+                curr->next = j;
+                j = j->next;
             }
+            curr = curr->next;
         }
         
-        while(l1!=NULL){
-            prev->next = l1;
-            prev = l1;
-            l1 = l1->next;
+        while(i!=NULL){
+            curr->next = i;
+            curr = curr->next;
+            i = i->next;
         }
         
-        while(l2!=NULL){
-            prev->next = l2;
-            prev = l2;
-            l2 = l2->next;
+        while(j!=NULL){
+            curr->next = j;
+            curr = curr->next;
+            j = j->next;
         }
-        return head;        
+        
+        head = head->next;
+        //delete curr;
+        
+        return head;
+    
     }
 };
