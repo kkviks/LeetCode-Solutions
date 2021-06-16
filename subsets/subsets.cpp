@@ -1,24 +1,23 @@
 class Solution {
 public:
-    vector<vector<int>> subsets(vector<int>& v) {
-        int n = v.size();
-        int last = (1<<n) -1;
-        vector<vector<int>> subsets;
-        subsets.push_back({});
+    vector<vector<int>> subsets(vector<int>& a) {
+        int n = a.size();
+        int m = (1<<n)-1;
         
-        for(int i=1;i<=last;i++)
-        {
+        vector<vector<int>> ans;
+        
+        for(int i=0;i<=m;i++){
+            
             vector<int> temp;
-            for(int j=0; (1<<j) <= i; j++)
-            {
-                if(i & (1<<j) )
-                {
-                    temp.push_back(v[n-1-j]);
-                }
+            
+            for(int j=0;j<n;j++){
+                if(i&(1<<j))temp.push_back(a[n-1-j]);
             }
-            subsets.push_back(temp);
+            
+            if(temp.size())ans.push_back(temp);
         }
         
-        return subsets;
+        ans.push_back({});
+        return ans;
     }
 };
