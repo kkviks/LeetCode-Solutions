@@ -14,24 +14,37 @@ public:
         for(int i=0;i<r;i++){
             for(int j=0;j<c;j++){
                 if(visited[i][j]=='1') // 1=> not visited
+                {
                     count++;
-                    dfs(i,j,visited);
+                    bfs(i,j,visited);
+                }
+                    
             }
         }
         
         return count;
     }
     
-    void dfs(int i, int j, vector<vector<char>> &visited){
-        if(i<0 or j<0 or i>=visited.size() or j>=visited[0].size())
-            return;
-        if(visited[i][j]=='0')
-            return;
-        
+    void bfs(int i, int j, vector<vector<char>> &visited){
+        queue<pair<int,int>> q;
+        q.push({i,j});
         visited[i][j]='0';
         
-        for(int k=0; k<4;k++){
-            dfs(i+dx[k], j+dy[k], visited);
+        while(!q.empty()){
+            auto [i,j] = q.front(); q.pop();
+            
+            for(int k=0;k<4;k++){
+                int x = i+dx[k];
+                int y = j+dy[k];
+                if(check(x, y, visited)){
+                    q.push({x, y});
+                    visited[x][y]='0';
+                }
+            }
         }
+    }
+    
+    bool check(int i, int j,vector<vector<char>> &visited ){
+        return i>=0 and j>=0 and i<visited.size() and j<visited[i].size() and visited[i][j]=='1';
     }
 };
