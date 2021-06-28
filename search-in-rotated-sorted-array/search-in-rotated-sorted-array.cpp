@@ -1,39 +1,35 @@
 class Solution {
 public:
-    int search(vector<int>& a, int target) {
-        
+    int search(vector<int>& a, int x) {
         int n = a.size();
-        int pivot;
-        
-        int l = 0, r = n;
+        int l = 0, r = n-1;
         
         while(l<r){
             int mid = l+(r-l)/2;
             
             if(a[mid]>a[n-1])
-                l=mid+1;
+                l = mid+1;
             else
-                r=mid;
+                r = mid;
         }
         
-        pivot = l;
+        int pivot = l;
         
-        if(target>a[n-1])
-            l=0, r = pivot-1;
+        if(x<=a[n-1])
+            l = pivot, r=n-1;
         else
-            l = pivot, r = n-1;
+            l = 0, r = pivot-1;
         
         while(l<=r){
             int mid = l+(r-l)/2;
-            if(a[mid]==target)
+            if(a[mid]==x)
                 return mid;
-            if(target>a[mid])
+            if(x>a[mid])
                 l = mid+1;
             else
                 r = mid-1;
         }
         
         return -1;
-        
     }
 };
