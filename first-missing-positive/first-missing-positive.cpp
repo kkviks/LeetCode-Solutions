@@ -4,13 +4,14 @@ public:
         
         unordered_set<int> set(nums.begin(), nums.end());
         
-        for(int i=1;i<=500006;++i)
+        int N = 5*1e5;
+        
+        for(int i=1;i<=N;i++)
         {
             if(set.count(i)==0)
                 return i;
         }
         
-        return -1;
-        
+        return N+1;
     }
 };
