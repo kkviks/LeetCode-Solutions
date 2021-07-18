@@ -1,23 +1,35 @@
 class Solution {
-private:
-    bool isBipartite_helper(int node, int parent, vector<vector<int>>& l, vector<int> &visited, int color){
-        visited[node] = color;
-        for(auto nbr:l[node]){
-            if(visited[nbr]==-1){
-                bool ok = isBipartite_helper(nbr,node,l,visited,1-color);
-                if(ok == false)return false;
-            }else if(nbr!=parent and visited[nbr]==color)return false;
-        }
-        return true;
-    } 
 public:
     bool isBipartite(vector<vector<int>>& graph) {
-        vector<int> visited(graph.size(),-1);
         bool ans = true;
-        for(int i=0;i<visited.size();i++){
+        
+        vector<int> visited(graph.size(), -1);
+        
+        for(int i=0;i< graph.size() and ans ;i++)
+        {
             if(visited[i]==-1)
-                ans &= isBipartite_helper(i,-1,graph,visited,0);
+                ans &= dfs(i,graph,visited, 0);
         }
-        return ans;
+        
+        return ans;        
+    }
+    
+    bool dfs(int src, vector<vector<int>> &graph, vector<int> &visited, int color)
+    {
+        visited[src] = color;
+        
+        for(int &child:graph[src])
+        {
+            if(visited[child]==-1)
+            {
+                bool isBipartite = dfs(child,graph,visited,1-color);
+                if(isBipartite==false)
+                    return false;
+            }else if(visited[child]==color)
+                return false;
+            else 
+                continue;
+        }
+        return true;
     }
 };
