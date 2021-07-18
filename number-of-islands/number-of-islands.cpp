@@ -32,7 +32,7 @@ public:
         
         while(!q.empty()){
             auto [i,j] = q.front(); q.pop();
-            
+            visited[i][j]='0';
             for(int k=0;k<4;k++){
                 int x = i+dx[k];
                 int y = j+dy[k];
