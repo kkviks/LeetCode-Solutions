@@ -14,11 +14,11 @@ public:
         
         if(root==p or root==q)return root;
         
-        auto left = lowestCommonAncestor(root->left, p,q);
-        auto right = lowestCommonAncestor(root->right, p,q);
+        auto left = lowestCommonAncestor(root->left, p, q);
+        auto right = lowestCommonAncestor(root->right, p, q);
         
         if(left==NULL and right==NULL)return NULL;
-        if(left!=NULL and right!=NULL)return root;
+        if(left and right)return root;
         
         return left?left:right;
     }
