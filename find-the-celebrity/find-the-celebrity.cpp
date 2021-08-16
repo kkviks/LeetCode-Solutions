@@ -20,11 +20,6 @@ public:
         if(set.size()!=1)return -1;
         int celeb = *set.begin();
         
-        for(int i=0;i<n;i++){
-            if(knows(i,celeb)==0)
-                return -1;
-        }
-        
         return celeb;
     }
 };
