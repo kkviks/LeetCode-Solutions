@@ -4,22 +4,31 @@
 class Solution {
 public:
     int findCelebrity(int n) {
-        unordered_set<int> set;
-        for(int i=0;i<n;i++)
-            set.insert(i);
         
-        for(int i=0;i<n;i++){
-            if(set.count(i)==0)continue;
-            for(int j=0;j<n;j++){
-                if(i==j)continue;
-                knows(i,j)?set.erase(i):set.erase(j);
-                knows(j,i)?set.erase(j):set.erase(i);
+        int celebrity = 0;
+        int next_person = 1;
+        int count = n;
+        
+        while(count!=1){
+            
+            if(knows(celebrity,next_person)){
+                celebrity = next_person; 
             }
+            
+            next_person++;
+            count--;
+            
         }
         
-        if(set.size()!=1)return -1;
-        int celeb = *set.begin();
-        
-        return celeb;
+        return isCelebrity(celebrity,n)?celebrity:-1;
+    }
+    
+    bool isCelebrity(int celebrity,int n){
+        for(int i=0;i<n;i++){
+            if(i==celebrity)continue;
+            if(!knows(i,celebrity) or knows(celebrity,i))
+                return false;
+        }
+        return true;
     }
 };
