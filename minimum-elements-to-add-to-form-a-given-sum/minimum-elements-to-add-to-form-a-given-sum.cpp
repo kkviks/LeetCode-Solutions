@@ -7,8 +7,8 @@ public:
             sum += num;
         }
         
-        long diff = max(1L*goal,sum) - min(1L*goal,sum);
-        int count = ceil(diff*1.0/limit);
+        long diff = abs(sum-goal);
+        int count = (diff+limit-1)/limit;
         
         return count;
     }
