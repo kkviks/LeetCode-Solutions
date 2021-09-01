@@ -1,26 +1,19 @@
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
-        int max_sum = INT_MIN;
-        bool allNeg = true;
-        int max_neg = INT_MIN;
+    int maxSubArray(vector<int>& a) {
+        int n = a.size();
+        int dp[n];
         
-        int sum = 0;
-        
-        for(int i=0;i<nums.size();i++){
-            sum += nums[i];
-            if(sum<0)
-                sum = 0;
-            max_sum = max(max_sum,sum);
-            if(nums[i]>=0)
-                allNeg=false;
-            else
-                max_neg = max(max_neg, nums[i]);
+        dp[0] = a[0];
+        for(int i=1;i<n;i++){
+            dp[i] = max(dp[i-1]+a[i], a[i]);
         }
         
-        if(allNeg)
-            return max_neg;
+        int ans = INT_MIN;
+        for(int i=0;i<n;i++){
+            ans = max(ans, dp[i]);
+        }
         
-        return max_sum;
+        return ans;
     }
 };
