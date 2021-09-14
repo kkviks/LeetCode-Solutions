@@ -1,6 +1,7 @@
 class Logger {
 private:
-    unordered_map<string,int> m;
+    deque<pair<int,string>> dq;
+    unordered_set<string> set;
 public:
     /** Initialize your data structure here. */
     Logger() {
@@ -11,16 +12,19 @@ public:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity. */
     bool shouldPrintMessage(int timestamp, string message) {
-        if(m.count(message)==0){
-            m[message] = timestamp;
-            return true;
+        //clean up
+        while(dq.size() and timestamp-dq.front().first>=10){
+            set.erase(dq.front().second);
+            dq.pop_front();
         }
         
-        int prev_time = m[message];
-        
-        if(timestamp-prev_time<10)return false;
-        m[message] = timestamp;
-        return true;
+        if(set.count(message)){
+            return false;
+        }else{
+            dq.push_back({timestamp,message});
+            set.insert(message);
+            return true;
+        }
     }
 };
 
