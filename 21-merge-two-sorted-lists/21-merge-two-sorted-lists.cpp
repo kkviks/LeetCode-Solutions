@@ -11,27 +11,15 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode* sentinelNode = new ListNode(INT_MIN);
-        ListNode* curr = sentinelNode;
-        ListNode* curr1 = list1, *curr2 = list2;
+        if(list1==NULL)return list2;
+        if(list2==NULL)return list1;
         
-        
-        while(curr1!=NULL and curr2!=NULL){
-            if(curr1->val <= curr2->val){
-                curr->next = curr1;
-                curr1 = curr1->next;
-            }else{
-                curr->next = curr2;
-                curr2 = curr2->next;
-            }
-            curr = curr->next;
+        if(list1->val <= list2->val){
+            list1->next = mergeTwoLists(list1->next, list2);
+            return list1;
         }
-        if(curr1!=NULL)
-            curr->next = curr1;
         
-        if(curr2!=NULL)
-            curr->next = curr2;
-        
-        return sentinelNode->next;
+        list2->next = mergeTwoLists(list1, list2->next);
+        return list2;
     }
 };
