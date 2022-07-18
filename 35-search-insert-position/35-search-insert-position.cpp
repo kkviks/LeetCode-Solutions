@@ -1,7 +1,7 @@
 class Solution {
 public:
     int searchInsert(vector<int>& a, int target) {
-        if(target < a[0])return 0;
+        if(target < a.front())return 0;
         if(target > a.back())return a.size();
         
         int l = 0, h = a.size();
