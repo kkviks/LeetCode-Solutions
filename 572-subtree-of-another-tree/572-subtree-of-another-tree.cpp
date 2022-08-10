@@ -31,10 +31,9 @@ public:
         if(root==NULL and subRoot!=NULL)return false; 
         
         bool leftSame = isOverlap(root->left, subRoot->left);
-        bool rightSame = isOverlap(root->right, subRoot->right);
-        bool ans = root->val == subRoot->val;
-        ans &= leftSame;
-        ans &= rightSame;
+        bool rightSame = leftSame & isOverlap(root->right, subRoot->right);
+        bool ans = rightSame & root->val == subRoot->val;
+    
         return ans;
     }
 };
