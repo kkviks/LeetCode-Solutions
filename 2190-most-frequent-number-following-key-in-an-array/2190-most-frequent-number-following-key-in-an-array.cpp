@@ -1,9 +1,7 @@
 class Solution {
-private:
-    const int RANGE=1000;
 public:
     int mostFrequent(vector<int>& nums, int key) {
-        vector<int> count(RANGE+1,0);
+        unordered_map<int,int> count;
         pair<int,int> ans = {INT_MIN,0};
         for(int i=0;i<nums.size()-1;i++){
             if(nums[i]==key){
