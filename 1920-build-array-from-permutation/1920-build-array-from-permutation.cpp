@@ -1,10 +1,15 @@
 class Solution {
 public:
     vector<int> buildArray(vector<int>& nums) {
-        vector<int> ans(nums.size());
-        for(int i=0;i<ans.size();i++){
-            ans[i] = nums[nums[i]];
+        int mask = (1<<10) - 1;
+        for(int i=0;i<nums.size();i++){
+            int want = nums[nums[i]] & mask;
+            want = want << 10;
+            nums[i] = want | nums[i];
         }
-        return ans;
+        for(int i=0;i<nums.size();i++){
+            nums[i] = nums[i] >> 10;
+        }
+        return nums;
     }
 };
