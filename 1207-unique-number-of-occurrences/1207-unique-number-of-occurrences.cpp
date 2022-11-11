@@ -1,18 +1,17 @@
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& arr) {
-        unordered_map<int,int> map;
-        for(int x: arr){
-            map[x]++;
+        int a[2001] = {0};
+        for(int x:arr){
+            a[x+1000]++;
         }
-        unordered_set<int> have_seen;
-        for(pair<int,int> p:map){
-            if(have_seen.count(p.second)){
+        unordered_set<int> set;
+        for(int i=0;i<2001;i++){
+            if(a[i]==0)continue;
+            if(set.count(a[i]))
                 return false;
-            }
-            have_seen.insert(p.second);
+            else set.insert(a[i]);
         }
-        
         return true;
     }
 };
